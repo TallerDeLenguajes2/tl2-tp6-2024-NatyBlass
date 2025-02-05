@@ -80,14 +80,81 @@ public class PresupuestoRepositorio
     }
 
 
-    /*public void AgregarProductoAPresupuesto(int idPresupuesto, Producto producto, int cantidad)
+    public bool AgregarProductoAlresupuesto(int idPresupuesto, Producto producto, int cantidad)
     {
-        using (var connection = new SqliteConnection(cadenaDeConexion))
+        var presupuesto = ObtenerPresupuestoPorId(idPresupuesto);
+        
+        if (presupuesto != null)
         {
-            string consulta = "INSERT INTO PresupuestosDetalle (idPresupuesto, idProducto, Cantidad) VALUES (@idPresupuesto, @idProducto, @Cantidad);";
-            var command = new SqliteCommand(consulta, connection);
-            
+            using (var connection = new SqliteConnection(cadenaDeConexion))
+            {
+                string consulta = "INSERT INTO PresupuestoDetalle (IdPresupuesto, IdProducto, Cantidad) VALUES (@IdPresupuesto, @IdProducto, @Cantidad);";
+                var command = new SqliteCommand(consulta, connection);
+                command.Parameters.AddWithValue("@IdPresupuesto", idPresupuesto);
+                command.Parameters.AddWithValue("@IdProducto", producto.IdProducto);
+                command.Parameters.AddWithValue("@Cantidad", cantidad);
+
+                connection.Open();
+
+                //Voy a utilizar el método de SqliteCommand que me devuelve el número de filas afectadas en una consulta SQL que se haya ejecutado para verificar que se realizó exitosamente la consulta
+
+                int filasAfectadas = command.ExecuteNonQuery(); // acá tengo la cant de filas afectadas
+                connection.Close();
+
+                if(filasAfectadas > 0)
+                {
+                    return true; // si se insertó al menos 1 fila, funcionó la consulta.
+                }
+                else
+                {
+                    return false;
+                }
+            }
+        }
+        else
+        {
+            return false;
         }
     }
-    */
+
+    public bool EliminarPresupuestoPorId(int idPresupuesto)
+    {
+        //Este DELETE debe ser en parte ya que primero tengo que boorar los detalles del presupuesto
+
+        using(var connection = new SqliteConnection(cadenaDeConexion))
+        {
+            string consultaDetPresupuesto = "DELETE FROM PresupuestoDetalle WHERE IdPresupuesto = @IdPresupuesto;";
+            var commandDetPresupuesto =  new SqliteCommand(consultaDetPresupuesto, connection);
+            commandDetPresupuesto.Parameters.AddWithValue("@IdPresupuesto", idPresupuesto);
+
+            connection.Open();
+            commandDetPresupuesto.ExecuteNonQuery();
+            connection.Close();
+        }
+
+        //Una vez que borré el detalle, borro el presupuesto
+
+        using(var connection = new SqliteConnection(cadenaDeConexion))
+        {
+            string consultaPresup = "DELETE FROM Presupuestos WHERE IdPresupuesto = @IdPresupuesto;";
+            var commandPresup = new SqliteCommand(consultaPresup, connection);
+            commandPresup.Parameters.AddWithValue("@IdPresupuesto", idPresupuesto);
+
+            connection.Open();
+            //Reviso si hay filas afectadas
+            int filasAfectadas = commandPresup.ExecuteNonQuery();
+            connection.Close();
+
+            if (filasAfectadas > 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        
+    }
+    
 }
