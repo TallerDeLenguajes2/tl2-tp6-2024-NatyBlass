@@ -1,5 +1,8 @@
 using Microsoft.Data.Sqlite;
 using System.Collections.Generic;
+using tl2_tp6_2024_NatyBlass.Models.Presupuestos;
+using tl2_tp6_2024_NatyBlass.Models.Productos;
+using tl2_tp6_2024_NatyBlass.Models.PresupuestosDetalle;
 
 public class PresupuestoRepositorio
 {

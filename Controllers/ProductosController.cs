@@ -1,5 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
-
+using tl2_tp6_2024_NatyBlass.Models.Presupuestos;
+using tl2_tp6_2024_NatyBlass.Models.Productos;
+using tl2_tp6_2024_NatyBlass.Models.PresupuestosDetalle;
 public class ProductosController : Controller
 {
     private readonly ProductoRepositorio repoProducto;
