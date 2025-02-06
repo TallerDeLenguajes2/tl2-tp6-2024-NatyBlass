@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using tl2_tp6_2024_NatyBlass.Models.Presupuestos;
 using tl2_tp6_2024_NatyBlass.Models.Productos;
 using tl2_tp6_2024_NatyBlass.Models.PresupuestosDetalle;
+using Microsoft.AspNetCore.Mvc;
 
 public class PresupuestoRepositorio
 {

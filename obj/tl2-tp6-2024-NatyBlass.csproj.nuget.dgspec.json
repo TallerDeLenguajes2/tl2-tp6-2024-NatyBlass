@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Natalia\\Documents\\FACULTAD 2024\\Taller de Lenguajes 2\\tl2-tp6-2024-NatyBlass\\tl2-tp6-2024-NatyBlass.csproj": {}
+    "c:\\Users\\Natalia\\Documents\\FACULTAD 2024\\Taller de Lenguajes 2\\tl2-tp6-2024-NatyBlass\\tl2-tp6-2024-NatyBlass.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Natalia\\Documents\\FACULTAD 2024\\Taller de Lenguajes 2\\tl2-tp6-2024-NatyBlass\\tl2-tp6-2024-NatyBlass.csproj": {
+    "c:\\Users\\Natalia\\Documents\\FACULTAD 2024\\Taller de Lenguajes 2\\tl2-tp6-2024-NatyBlass\\tl2-tp6-2024-NatyBlass.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Natalia\\Documents\\FACULTAD 2024\\Taller de Lenguajes 2\\tl2-tp6-2024-NatyBlass\\tl2-tp6-2024-NatyBlass.csproj",
+        "projectUniqueName": "c:\\Users\\Natalia\\Documents\\FACULTAD 2024\\Taller de Lenguajes 2\\tl2-tp6-2024-NatyBlass\\tl2-tp6-2024-NatyBlass.csproj",
         "projectName": "tl2-tp6-2024-NatyBlass",
-        "projectPath": "C:\\Users\\Natalia\\Documents\\FACULTAD 2024\\Taller de Lenguajes 2\\tl2-tp6-2024-NatyBlass\\tl2-tp6-2024-NatyBlass.csproj",
+        "projectPath": "c:\\Users\\Natalia\\Documents\\FACULTAD 2024\\Taller de Lenguajes 2\\tl2-tp6-2024-NatyBlass\\tl2-tp6-2024-NatyBlass.csproj",
         "packagesPath": "C:\\Users\\Natalia\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Natalia\\Documents\\FACULTAD 2024\\Taller de Lenguajes 2\\tl2-tp6-2024-NatyBlass\\obj\\",
+        "outputPath": "c:\\Users\\Natalia\\Documents\\FACULTAD 2024\\Taller de Lenguajes 2\\tl2-tp6-2024-NatyBlass\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Natalia\\AppData\\Roaming\\NuGet\\NuGet.Config"

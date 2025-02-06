@@ -21,6 +21,11 @@ public class PresupuestosController : Controller
         return View("Index", presupuestos); //Así es como devuelvo la visa con la lista de presupuestos (en este caso)
     }
 
+    public IActionResult Crear()
+    {
+        return View();
+    }
+
     [HttpPost]
     public IActionResult Crear(Presupuesto presupuesto)
     {

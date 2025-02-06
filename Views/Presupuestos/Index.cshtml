@@ -4,13 +4,19 @@
     ViewData["Title"] = "Presupuestos"; // sería el titulo de la pág
 }
 
+<h1>Listar Presupuestos</h1>
 
-<h2>Lista de Presupuestos</h2>
+<p>
+    <a asp-action="Crear">Crear Nuevo Presupuesto</a>
+</p>
+
 <table>
     <thead>
         <tr>
             <th>Nombre Destinatario</th>
             <th>Fecha Creación</th>
+            <th>Monto</th>
+            <th>Acciones</th>
         </tr>
     </thead>
     <tbody>
@@ -19,6 +25,12 @@
             <tr>
                 <td>@presupuesto.NombreDestinatario</td>
                 <td>@presupuesto.FechaCreacion</td>
+                <td>@presupuesto.MontoPresupuesto()</td>
+                <td>
+                    <a asp-action="Modificar" asp-route-itemid="@presupuesto.IdPresupuesto">Modificar</a>
+                    <a asp-action="Eliminar" asp-route-itemid="@presupuesto.IdPresupuesto">Eliminar</a>
+                    <a asp-action="Detalles" asp-route-itemid="@presupuesto.IdPresupuesto">Detalles</a>
+                </td>
             </tr>
         }
     </tbody>
