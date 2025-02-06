@@ -1,0 +1,25 @@
+@model IEnumerable<tl2_tp6_2024_NatyBlass.Models.Presupuestos>
+
+@{
+    ViewData["Title"] = "Presupuestos"; // sería el titulo de la pág
+}
+
+
+<h2>Lista de Presupuestos</h2>
+<table>
+    <thead>
+        <tr>
+            <th>Nombre Destinatario</th>
+            <th>Fecha Creación</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var presupuesto in Model)
+        {
+            <tr>
+                <td>@presupuesto.NombreDestinatario</td>
+                <td>@presupuesto.FechaCreacion</td>
+            </tr>
+        }
+    </tbody>
+</table>
