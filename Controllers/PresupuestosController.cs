@@ -47,7 +47,7 @@ public class PresupuestosController : Controller
         var presupuesto = repoPresupuesto.ObtenerPresupuestoPorId(id);
         if(presupuesto == null)
         {
-            return NotFound("No se encontró el Presupuesto");
+            return NotFound("No se encontró el Presupuesto1");
         }
         return View(presupuesto); //Muestra el formulario para modificar el presupuesto
     }
@@ -60,7 +60,7 @@ public class PresupuestosController : Controller
             var presupExistente = repoPresupuesto.ObtenerPresupuestoPorId(id);
             if (presupExistente == null)
             {
-                return NotFound("No se encontró el Presupuesto");
+                return NotFound("No se encontró el Presupuesto2");
             }
             else
             {

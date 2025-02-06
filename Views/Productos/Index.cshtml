@@ -25,8 +25,8 @@
                 <td>@producto.Descripcion</td>
                 <td>@producto.Precio</td>
                 <td>
-                    <a asp-action="Modificar" asp-route-itemid="@producto.IdProducto">Modificar</a>
-                    <a asp-action="Eliminar" asp-route-itemid="@producto.IdProducto">Eliminar</a>
+                    <a asp-action="Modificar" asp-route-id="@producto.IdProducto">Modificar</a>
+                    <a asp-action="Eliminar" asp-route-id="@producto.IdProducto">Eliminar</a>
                 </td>
             </tr>
         }

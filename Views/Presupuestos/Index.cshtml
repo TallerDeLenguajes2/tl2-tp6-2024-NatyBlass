@@ -27,9 +27,9 @@
                 <td>@presupuesto.FechaCreacion</td>
                 <td>@presupuesto.MontoPresupuesto()</td>
                 <td>
-                    <a asp-action="Modificar" asp-route-itemid="@presupuesto.IdPresupuesto">Modificar</a>
-                    <a asp-action="Eliminar" asp-route-itemid="@presupuesto.IdPresupuesto">Eliminar</a>
-                    <a asp-action="Detalles" asp-route-itemid="@presupuesto.IdPresupuesto">Detalles</a>
+                    <a asp-action="ModificarPresupuesto" asp-route-id="@presupuesto.IdPresupuesto">Modificar</a>
+                    <a asp-action="Eliminar" asp-route-id="@presupuesto.IdPresupuesto">Eliminar</a>
+                    <a asp-action="Detalles" asp-route-id="@presupuesto.IdPresupuesto">Detalles</a>
                 </td>
             </tr>
         }
