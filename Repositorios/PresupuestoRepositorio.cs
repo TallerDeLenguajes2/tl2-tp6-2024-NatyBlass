@@ -73,6 +73,7 @@ public class PresupuestoRepositorio
                         reader.GetInt32(0),
                         reader.GetString(1),
                         reader.GetDateTime(2));
+
                 }
             }
 
@@ -82,6 +83,34 @@ public class PresupuestoRepositorio
         return presup;
     }
 
+    private List<PresupuestoDetalle> ObtenerDetallesPorIdPresupuesto(int idPresupuesto)
+    {
+        var detalles = new List<PresupuestoDetalle>();
+        var productoRepositorio = new ProductoRepositorio();
+
+        using(var connection = new SqliteConnection(cadenaDeConexion))
+        {
+            string consulta = "SELECT IdProducto, Cantidad FROM PresupuestoDetalle WHERE IdPresupuesto = @IdPresupuesto;";
+            var command = new SqliteCommand(consulta, connection);
+            command.Parameters.AddWithValue("@IdPresupuesto", idPresupuesto);
+            
+            connection.Open();
+
+            using (SqliteDataReader reader = command.ExecuteReader())
+            {
+                while(reader.Read())
+                {
+                    var producto = productoRepositorio.ObtenerProductoPorId(reader.GetInt32(0));
+                    var detalle = new PresupuestoDetalle(producto, reader.GetInt32(1));
+                    detalles.Add(detalle);
+                }
+            }
+
+            connection.Close();
+        }
+
+        return detalles;
+    }
 
     public bool AgregarProductoAlresupuesto(int idPresupuesto, Producto producto, int cantidad)
     {

@@ -18,7 +18,7 @@ public class PresupuestosController : Controller
     public IActionResult Index()
     {
         var presupuestos = repoPresupuesto.ListarPresupuesto();
-        return View(presupuestos); //Así es como devuelvo la visa con la lista de presupuestos (en este caso)
+        return View("Index", presupuestos); //Así es como devuelvo la visa con la lista de presupuestos (en este caso)
     }
 
     [HttpPost]

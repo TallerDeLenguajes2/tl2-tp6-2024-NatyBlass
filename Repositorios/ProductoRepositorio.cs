@@ -87,7 +87,7 @@ public class ProductoRepositorio
                     prod = new Producto(
                         reader.GetInt32(0),
                         reader.GetString(1),
-                        reader.GetInt32(2)
+                        reader.GetFloat(2) //Correccion porque en la clase es un FLOAT y no INT
                     );
                 }
             }
