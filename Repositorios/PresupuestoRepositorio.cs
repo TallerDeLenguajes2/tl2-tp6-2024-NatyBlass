@@ -18,6 +18,8 @@ public class PresupuestoRepositorio
             command.Parameters.AddWithValue("@NombreDestinatario", presup.NombreDestinatario);
             command.Parameters.AddWithValue("@FechaCreacion", presup.FechaCreacion);
 
+            
+
             connection.Open();
             command.ExecuteNonQuery();
             connection.Close();
@@ -83,6 +85,7 @@ public class PresupuestoRepositorio
 
         return presup;
     }
+
 
     private List<PresupuestoDetalle> ObtenerDetallesPorIdPresupuesto(int idPresupuesto)
     {
@@ -190,4 +193,20 @@ public class PresupuestoRepositorio
         
     }
     
+    public void ActualizarPresupuesto(Presupuesto presupuesto)
+    {
+        using (var connection = new SqliteConnection(cadenaDeConexion))
+        {
+            string consulta = "UPDATE Presupuestos SET NombreDestinatario = @NombreDestinatario, FechaCreacion = @FechaCreacion WHERE IdPresupuesto = @IdPresupuesto;";
+            var command = new SqliteCommand(consulta, connection);
+            command.Parameters.AddWithValue("@NombreDestinatario", presupuesto.NombreDestinatario);
+            command.Parameters.AddWithValue("@FechaCreacion", presupuesto.FechaCreacion);
+            command.Parameters.AddWithValue("@IdPresupuesto", presupuesto.IdPresupuesto);
+            
+            connection.Open();
+            command.ExecuteNonQuery();
+            connection.Close();
+            }
+    }
+
 }

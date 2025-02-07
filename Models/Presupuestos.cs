@@ -20,6 +20,10 @@ namespace tl2_tp6_2024_NatyBlass.Models.Presupuestos
             this.fechaCreacion = fechaCreacion;
             this.detalle = new List<PresupuestoDetalle>();
         }
+        
+        public Presupuesto()
+        {
+        } //Constructor sin parametros para verificar si se soluciona un error al querer modificar el presupuesto
 
 
         public float MontoPresupuesto()

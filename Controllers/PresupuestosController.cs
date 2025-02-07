@@ -53,7 +53,7 @@ public class PresupuestosController : Controller
     }
 
     [HttpPost]
-    public IActionResult Modificar(int id, Presupuesto presupuesto)
+    public IActionResult ModificarPresupuesto(int id, Presupuesto presupuesto)
     {
         if (ModelState.IsValid)
         {
@@ -66,7 +66,7 @@ public class PresupuestosController : Controller
             {
                 presupExistente.NombreDestinatario = presupuesto.NombreDestinatario;
                 presupExistente.FechaCreacion = presupuesto.FechaCreacion;
-                repoPresupuesto.CrearPresupuesto(presupExistente); // Acá lo actualizaría al presupuesto
+                repoPresupuesto.ActualizarPresupuesto(presupExistente); // Acá lo actualizaría al presupuesto
                 return RedirectToAction("Index");
             }
         }
