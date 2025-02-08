@@ -6,7 +6,7 @@
 
 <h1>Crear Presupuesto</h1>
 
-<form asp-action="Crear">
+<form asp-action="Crear" method="post">
     <section class="form-group">
         <label asp-for="NombreDestinatario" class="control-label">Nombre Destinatario</label>
         <input asp-for="NombreDestinatario" class="form-control">
@@ -14,8 +14,11 @@
     </section>
     <section class="form-group">
         <label asp-for="FechaCreacion" class="control-label">Fecha Creacion</label>
-        <input asp-for="FechaCreacion" class="form-control">
+        <input asp-for="FechaCreacion" class="form-control" type="datetime">
         <span asp-validation-for="FechaCreacion" class="text-danger"></span>        
+    </section>
+    <section class="form-group">
+        <input type="submit" value="Crear" class="btn btn-primary">
     </section>
 </form>
 
