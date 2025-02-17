@@ -1,37 +1,41 @@
-@model IEnumerable<tl2_tp6_2024_NatyBlass.Models.Presupuestos.Presupuesto>
+@model List<tl2_tp6_2024_NatyBlass.Models.Presupuestos.Presupuesto>
 
 @{
-    ViewData["Title"] = "Presupuestos"; // sería el titulo de la pág
+    ViewData["Title"] = "Gestión de Presupuestos";
 }
 
-<h1>Listar Presupuestos</h1>
+<section class="container">
+    <section class="text-left">
+        <h1>Gestión de Presupuestos</h1>
 
-<p>
-    <a asp-action="Crear">Crear Nuevo Presupuesto</a>
-</p>
-
-<table>
-    <thead>
-        <tr>
-            <th>Nombre Destinatario</th>
-            <th>Fecha Creación</th>
-            <th>Monto</th>
-            <th>Acciones</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var presupuesto in Model)
-        {
-            <tr>
-                <td>@presupuesto.NombreDestinatario</td>
-                <td>@presupuesto.FechaCreacion</td>
-                <td>@presupuesto.MontoPresupuesto()</td>
-                <td>
-                    <a asp-action="ModificarPresupuesto" asp-route-id="@presupuesto.IdPresupuesto">Modificar</a>
-                    <a asp-action="Eliminar" asp-route-id="@presupuesto.IdPresupuesto">Eliminar</a>
-                    <a asp-action="Detalles" asp-route-id="@presupuesto.IdPresupuesto">Detalles</a>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
+        <ul class="list-group">
+            <li class="list-group-item">
+                <a asp-controller="Presupuesto" asp-action="ListarPresupuesto">Ver Lista de Presupuestos</a>
+            </li>
+            <li class="list-group-item">
+                <form asp-controller="Presupuesto" asp-action="ObtenerPresupuestoPorId" method="get">
+                    <label for="productId">ID del Presupuesto que desea ver:</label>
+                    <input type="text" id="productId" name="id" required />
+                    <button type="submit">Ver Presupuesto</button>
+                </form>
+            </li>
+            <li class="list-group-item">
+                <a asp-controller="Presupuesto" asp-action="CrearPresupuesto">Crear un nuevo presupuesto</a>
+            </li>
+            <li class="list-group-item">
+                <form asp-controller="Presupuesto" asp-action="EliminarPresupuestoPorId" method="get">
+                    <label for="deleteId">ID del Presupuesto a Eliminar:</label>
+                    <input type="text" id="deleteId" name="id" required />
+                    <button type="submit">Eliminar Presupuesto</button>
+                </form>
+            </li> 
+            <li class="list-group-item">
+                <form asp-controller="Presupuesto" asp-action="AgregarProductoAlPresupuesto" method="get">
+                    <label for="productId">Agregar producto al presupuesto:</label>
+                    <input type="text" id="productId" name="id" required />
+                    <button type="submit">Ir a Agregar Producto</button>
+                </form>
+            </li>
+        </ul>
+    </section>
+</section>

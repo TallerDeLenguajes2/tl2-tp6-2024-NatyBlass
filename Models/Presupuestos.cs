@@ -13,7 +13,7 @@ namespace tl2_tp6_2024_NatyBlass.Models.Presupuestos
         public DateTime FechaCreacion { get => fechaCreacion; set => fechaCreacion = value; }
         public List<PresupuestoDetalle> Detalle { get => detalle; set => detalle = value; }
 
-        public Presupuesto(int idPresupuesto, string nombreDestinatario, DateTime fechaCreacion)
+        public Presupuesto(int idPresupuesto, string nombreDestinatario, DateTime fechaCreacion, List<PresupuestoDetalle> detalle)
         {
             this.idPresupuesto = idPresupuesto;
             this.nombreDestinatario = nombreDestinatario;
@@ -52,6 +52,11 @@ namespace tl2_tp6_2024_NatyBlass.Models.Presupuestos
             }
 
             return cantTotal;
+        }
+
+        public void insId(int id)
+        {
+            this.idPresupuesto = id;
         }
 
     }

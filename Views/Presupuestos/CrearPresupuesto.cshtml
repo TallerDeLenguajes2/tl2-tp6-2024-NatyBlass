@@ -1,0 +1,23 @@
+@model tl2_tp6_2024_NatyBlass.Models.Presupuestos.Presupuesto
+
+@{
+    ViewData["Title"] = "Crear Presupuesto";
+}
+
+<h1>Crear Presupuesto</h1>
+
+<form asp-controller="Presupuestos" asp-action="CrearPresupuesto">
+    <section class="form-group">
+        <label asp-for="NombreDestinatario" class="control-label">Nombre del destinatario:</label>
+        <input asp-for="NombreDestinatario" type="text" class="form-control" required />
+        <span asp-validation-for="NombreDestinatario" class="text-danger"></span>
+    </section>
+    <section class="form-group">
+        <label asp-for="FechaCreacion" class="control-label">Fecha de creación:</label>
+        <input asp-for="FechaCreacion" type="date" class="form-control" />
+        <span asp-validation-for="FechaCreacion" class="text-danger"></span>
+    </section>
+    <section class="form-group">
+        <button type="submit" class="btn btn-primary">Crear</button>
+    </section>
+</form>

@@ -16,5 +16,15 @@ public class Producto
             this.descripcion = descripcion;
             this.precio = precio;
         }
+
+        public Producto()
+        {
+            
+        }
+
+        public void insertarId(int id)
+        {
+            this.idProducto = id;
+        }
     }
 }

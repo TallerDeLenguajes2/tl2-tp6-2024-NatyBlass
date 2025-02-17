@@ -21,108 +21,115 @@ public class PresupuestosController : Controller
         return View("Index", presupuestos); //Así es como devuelvo la visa con la lista de presupuestos (en este caso)
     }
 
-    public IActionResult Crear()
+    [HttpGet]
+    public IActionResult ObtenerPresupuestoPorId(int id)
     {
-        return View();
+        var presupuestos = repoPresupuesto.ObtenerPresupuestoPorId(id);
+        
+        if (presupuestos == null)
+        {
+            ViewData["ErrorMessage"] = "No existe un presupuesto con el ID ingresado.";
+            return View("Error");
+        }
+
+        return View(presupuestos);
+    }
+
+    [HttpGet]
+    public IActionResult CrearPresupuesto()
+    {
+        return View(new Presupuesto());
     }
 
     [HttpPost]
-    public IActionResult Crear(Presupuesto presupuesto)
+    public IActionResult CrearPresupuesto(Presupuesto nuevoPresupuesto)
     {
-        if (ModelState.IsValid) //ModelState me permite validar los datos enviados al servidor a través del formulario o cuerpo de la solicitud
-        {
-            
-            repoPresupuesto.CrearPresupuesto(presupuesto);
-            
-            return RedirectToAction("Index"); //En este caso, me redirige a la lista de presupuestos
-        }
-        else
-        {
-            return View(presupuesto); //Si el modelo no es válido nos muestra  el formulario con los errores
-        }
+        var producto = repoPresupuesto.CrearPresupuesto(nuevoPresupuesto);
+        return RedirectToAction("ObtenerPresupuestoPorId");
     }
-    
+
+    [HttpGet]
     public IActionResult ModificarPresupuesto(int id)
     {
         var presupuesto = repoPresupuesto.ObtenerPresupuestoPorId(id);
-        if(presupuesto == null)
-        {
-            return NotFound("No se encontró el Presupuesto1");
-        }
-        return View(presupuesto); //Muestra el formulario para modificar el presupuesto
-    }
 
-    [HttpPost]
-    public IActionResult ModificarPresupuesto(int id, Presupuesto presupuesto)
-    {
-        if (ModelState.IsValid)
+        if (presupuesto == null)
         {
-            var presupExistente = repoPresupuesto.ObtenerPresupuestoPorId(id);
-            if (presupExistente == null)
-            {
-                return NotFound("No se encontró el Presupuesto2");
-            }
-            else
-            {
-                presupExistente.NombreDestinatario = presupuesto.NombreDestinatario;
-                presupExistente.FechaCreacion = presupuesto.FechaCreacion;
-                repoPresupuesto.ActualizarPresupuesto(presupExistente); // Acá lo actualizaría al presupuesto
-                return RedirectToAction("Index");
-            }
+            ViewData["ErrorMessage"] = "No existe un presupuesto con el ID ingresado.";
+            return View("Error");
         }
+
         return View(presupuesto);
     }
 
-    //Ahora quiero eliminar un presupuesto
-    public IActionResult Eliminar(int id)
-    {
-        var presupuesto = repoPresupuesto.ObtenerPresupuestoPorId(id);
-        if (presupuesto == null)
-        {
-            return NotFound("No se encontró el Presupuesto");
-        }
-        else
-        {
-            repoPresupuesto.EliminarPresupuestoPorId(id);
-            return RedirectToAction("Index");
-        }
-    }
-
-    //Voy a agregar productos a un presupuesto
     [HttpPost]
-    public IActionResult AgregarProducto(int id, int productoId, int cantidad)
+    public IActionResult EliminarProductoPresupuesto(int idPresupuesto, int idProducto)
     {
-        var presupuesto = repoPresupuesto.ObtenerPresupuestoPorId(id);
-        if (presupuesto == null)
-        {
-            return NotFound("No se encontró el Presupuesto");
-        }
-        else
-        {
-            var producto = repoProducto.ObtenerProductoPorId(productoId);
-            if (producto == null)
-            {
-                return NotFound("Producto no Encontrado");
-            }
-            else
-            {
-                var presupuestoDetalle = new PresupuestoDetalle(producto, cantidad);
-                repoPresupuesto.AgregarProductoAlresupuesto(id, presupuestoDetalle.Prod, presupuestoDetalle.Cantidad);
+        bool resultado = repoPresupuesto.EliminarProducto(idPresupuesto, idProducto);
 
-                return RedirectToAction("Ver", new{id = id});
-            }
+        if (!resultado)
+        {
+            ViewData["ErrorMessage"] = "El producto no pudo ser eliminado";
+            return View("Error");
         }
+
+        return RedirectToAction("ModificarPresupuesto", new{id = idPresupuesto});
     }
 
-    //Ahora quisiera ver un presupuesto con Productos
-    public IActionResult Ver(int id)
+    [HttpPost]
+    public IActionResult ModificarCantidadProducto(int idPresupuesto, int idProducto, int nuevaCant)
+    {
+        bool resultado = repoPresupuesto.ActualizarCantidadProducto(idPresupuesto, idProducto, nuevaCant);
+
+        if (!resultado)
+        {
+            ViewData["ErrorMessage"] = "No pudo actualizarse la cantidad del producto deseado.";
+            return View("Error");
+        }
+        
+        return RedirectToAction("ModificarPresupuesto", new{id = idPresupuesto});
+    }
+
+    [HttpGet]
+    public IActionResult EliminarPresupuesto(int id)
     {
         var presupuesto = repoPresupuesto.ObtenerPresupuestoPorId(id);
         if (presupuesto == null)
         {
-            return NotFound("Presupuesto no encontrado");
-        }  
+            ViewData["ErrorMessage"] = "El presupuesto con el ID ingresado no existe";
+            return View("Error");
+        }
+        
+        return View(presupuesto);
+    }
+
+    [HttpPost]
+    public IActionResult EliminarPresupuesto(Presupuesto presupuesto, int id)
+    {
+        repoPresupuesto.EliminarPresupuestoPorId(id);
+        return RedirectToAction("Index");
+    }
+
+    [HttpGet]
+    public IActionResult AñadirProductoAlPresupuesto(int id)
+    {
+        var presupuesto = repoPresupuesto.ObtenerPresupuestoPorId(id);
+        if (presupuesto == null)
+        {
+            ViewData["ErrorMessage"] = "El presupuesto con el ID ingresado no existe";
+            return View("Error");
+        }
 
         return View(presupuesto);
     }
+
+    [HttpPost]
+    public IActionResult AñadirProductoAlPresupuesto(int idPresupuesto, int idProducto, int cantidad)
+    {
+        Presupuesto auxiliar = repoPresupuesto.AgregarProductoAlPresupuesto(idPresupuesto, idProducto, cantidad);
+
+        return RedirectToAction("AñadirProductoAlPresupuesto", new {id = idPresupuesto});
+    }
+
+
 }

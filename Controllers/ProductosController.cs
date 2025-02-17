@@ -12,29 +12,42 @@ public class ProductosController : Controller
         repoProducto = productoRepositorio;
     }
 
+    public IActionResult Index()
+    {
+        return View();
+    }
+
     [HttpGet]
-    public IActionResult Listar()
+    public IActionResult ListarProductos()
     {
         var productos = repoProducto.ListarProductos();
         return View(productos);
     }
 
+    [HttpGet]
+    public IActionResult ObtenerProductoPorId(int id)
+    {
+        var producto = repoProducto.ObtenerProductoPorId(id);
+        
+        if (producto == null)
+        {
+            ViewData["ErrorMessage"] = "El producto con el ID ingresado no existe";
+            return View("Error");
+        }
+        return View(producto);
+    }
+
     [HttpGet("Crear")]
     public IActionResult Crear()
     {
-        return View(); //quiero un formulario para crear productos
+        return View(new Producto()); //quiero un formulario para crear productos
     }
 
     [HttpPost("Crear")] // quiero crear el producto
-    public IActionResult Crear(Producto producto)
+    public IActionResult Crear(Producto nuevoProducto)
     {
-        if (ModelState.IsValid)
-        {
-            repoProducto.CrearProducto(producto);
+            var producto = repoProducto.CrearProducto(nuevoProducto);
             return RedirectToAction("Listar");            
-        }
-
-        return View(producto);
     }
 
     [HttpGet("Editar/{id}")] //quiero el formulario para editar el producto
@@ -44,25 +57,18 @@ public class ProductosController : Controller
 
         if (producto == null)
         {
-            return NotFound("Producto no encontrado.");
-        }
-        else
-        {
-            return View(producto);
-        }
-    }
-
-    [HttpPost("Editar/{id}")] //Aquí quiero ya modificar el producto
-    public IActionResult Editar(int id, Producto producto)
-    {
-        if (ModelState.IsValid)
-        {
-            producto.IdProducto = id;
-            repoProducto.ModificarProducto(id, producto);
-            return RedirectToAction("Listar");
+            ViewData["ErrorMessage"] = "El producto con el ID ingresado no existe";
+            return View("Error");
         }
 
         return View(producto);
+    }
+
+    [HttpPost("Editar/{id}")] //Aquí quiero ya modificar el producto
+    public IActionResult Editar(int id, Producto productoAEditar)
+    {
+        var producto = repoProducto.ModificarProducto(id, productoAEditar);
+        return RedirectToAction("Listar");
     }
 
     [HttpGet("Eliminar/{id}")] // quisiera eliminar un producto, por lo tanto quiero en formulario
@@ -72,7 +78,8 @@ public class ProductosController : Controller
 
         if (producto == null)
         {
-            return NotFound("Producto no encontrado.");
+            ViewData["ErrorMessage"] = "El producto con el ID ingresado no existe";
+            return View("Error");
         }
         else
         {
@@ -81,7 +88,7 @@ public class ProductosController : Controller
     }
 
     [HttpPost("Eliminar/{id}")] //acá ya eliminaría el producto
-    public IActionResult ConfirmarEliminar(int id)
+    public IActionResult Eliminar(Producto producto, int id)
     {
         repoProducto.EliminarProducto(id);
         return RedirectToAction("Listar");
